@@ -10,9 +10,27 @@ class DuelBot(commands.Bot):
 
         self.database = MongoClient(kwargs["mongodb_key"])[config.database_name]
 
-
     async def setup_hook(self) -> None:
         for cog in config.cogs:
             await self.load_extension(f"cogs.{cog}")
 
+    async def get_database_collection(self, collection):
+        return self.database[collection]
+
     #  Add utility and autonomous functions
+
+    async def insert_user_document(self, user, email):
+        doc = {
+            "_id": str(user.id),
+            "balance": 0,
+            "paypalEmail": email,
+            "totalBetMoneyWon": 0,
+            "totalTournamentMoneyWon": 0,
+            "totalBets": 0,
+            "totalTournaments": 0,
+            "betsWon": 0,
+            "tournamentsWon": 0
+        }
+
+        collection = self.get_database_collection("users")
+        collection.insert_one(doc)
