@@ -12,6 +12,9 @@ class CogManager(commands.Cog):
     async def on_ready(self):
         print(f"Logged in as {self.bot.user.name}")
 
+        synced = await self.bot.tree.sync()
+        print(f"Synced {len(synced)} commands.")
+
 
 
 async def setup(client):
