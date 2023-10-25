@@ -14,12 +14,12 @@ class DuelBot(commands.Bot):
         for cog in config.cogs:
             await self.load_extension(f"cogs.{cog}")
 
-    async def get_database_collection(self, collection):
+    def get_database_collection(self, collection):
         return self.database[collection]
 
     #  Add utility and autonomous functions
 
-    async def insert_user_document(self, user, email):
+    def insert_user_document(self, user, email):
         doc = {
             "_id": str(user.id),
             "balance": 0,
