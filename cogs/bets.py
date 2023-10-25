@@ -10,7 +10,7 @@ class Bets(commands.Cog):
 
     @app_commands.command(name="register")
     async def test(self, ctx: discord.Interaction, email: str):
-        self.insert_user_document(ctx.user, email)
+        self.bot.insert_user_document(ctx.user, email)
         await ctx.response.send_message("Registered successfully!")
 
 
