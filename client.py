@@ -1,3 +1,5 @@
+import discord
+import pymongo.collection
 from discord.ext import commands
 from pymongo import MongoClient
 import config
@@ -34,3 +36,12 @@ class DuelBot(commands.Bot):
 
         collection = self.get_database_collection("users")
         collection.insert_one(doc)
+
+    def get_user_document(self, userID):
+        collection = self.get_database_collection("users")
+        return collection.find_one({"_id": str(userID)})
+
+    @staticmethod
+    def register_error(ctx: discord.Interaction):
+        embed = discord.Embed(title="Unregistered User",description="Please do /register before using any other commands.", colour=0xFF0000)
+        await ctx.response.send_message(embed=embed)
