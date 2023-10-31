@@ -34,7 +34,9 @@ class DuelBot(commands.Bot):
             "totalBets": 0,
             "totalTournaments": 0,
             "betsWon": 0,
-            "tournamentsWon": 0
+            "tournamentsWon": 0,
+            "totalDeposited": 0,
+            "totalWithdrawn": 0
         }
 
         collection = self.get_database_collection("users")
@@ -52,14 +54,6 @@ class DuelBot(commands.Bot):
         }
         collection.insert_one(doc)
 
-
-    @staticmethod
-    async def dm_user(user: discord.User, text="", embed=None):
-        dm_channel = user.dm_channel
-        if dm_channel is None:
-            dm_channel = await user.create_dm()
-        await dm_channel.send(content=text, embed=embed)
-
     def get_user_document(self, userID):
         collection = self.get_database_collection("users")
         return collection.find_one({"_id": str(userID)})
@@ -74,6 +68,13 @@ class DuelBot(commands.Bot):
             self.insert_payout_document(data, receiver, amount, user.id)
             embed = discord.Embed(title="Withdrawal Completed", description=f"{amount} {config.payoutCurrency} have been sent to your linked Paypal account!")
             await self.dm_user(user, embed=embed)
+
+    @staticmethod
+    async def dm_user(user: discord.User, text="", embed=None):
+        dm_channel = user.dm_channel
+        if dm_channel is None:
+            dm_channel = await user.create_dm()
+        await dm_channel.send(content=text, embed=embed)
 
     @staticmethod
     async def register_error(ctx: discord.Interaction):
