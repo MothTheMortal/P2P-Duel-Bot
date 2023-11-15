@@ -1,3 +1,14 @@
+import re
+
+
+# Auxiliary Functions
+def checkEmail(email):
+    emailFormat = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if re.match(emailFormat, email):
+        return True
+    else:
+        return False
+
 # Paypal
 currency = "USD"
 
@@ -20,3 +31,16 @@ minimumPayout = 5
 minimumDeposit = 5
 depositLink = "https://paypal.me/MortalMoth/{0}{1}"
 depositCurrency = currency
+
+
+# IPN Listener
+
+ipnURL = ['https://ipnpb.sandbox.paypal.com/cgi-bin/webscr', "https://ipnpb.paypal.com/cgi-bin/webscr"][0]
+
+
+# Color Codes
+errorColor = 0xFF0000
+successColor = 0x00FF00
+
+
+access_token = "A21AALMUGvvou4QbtVvCmynp_KyvwVZff11xraXm06SEgAI8mmlVFE7ho79Ypp1y8TNcyCLSzkEgs-oMHqf7bGavw9UKtVbQw"

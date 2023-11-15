@@ -1,4 +1,4 @@
-from config import payoutCurrency, tokenUrl, payoutUrl, payoutEmailSubject, payoutEmailMessage, payoutNote
+from config import access_token, payoutCurrency, tokenUrl, payoutUrl, payoutEmailSubject, payoutEmailMessage, payoutNote
 import requests
 import time
 import secrets
@@ -35,7 +35,6 @@ def getRESTAccessToken(client_id, client_secret):
     data = {"grant_type": "client_credentials"}
 
     response = requests.post(token_url, data=data, headers=headers)
-
     access_token = response.json()["access_token"]
     return access_token
 
